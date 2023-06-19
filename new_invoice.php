@@ -130,7 +130,8 @@
 
 
             <div class="col-md-2">
-				      	<input type='text' name="user_id" id='user_id' class='form-control' placeholder='Enter user id' onkeyup="GetDetail(this.value)" value="">
+				      	<input type='text' name="user_id" id='user_id' class='form-control' placeholder='Enter user id' >
+                <!-- onkeyup="GetDetail(this.value)" value="" -->
                 <code class="text-danger small font-weight-bold float-right" id="NAME" style="display: none;"></code>
             </div>
 
