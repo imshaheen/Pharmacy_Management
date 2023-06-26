@@ -89,7 +89,7 @@ function showSales($start_date, $end_date) {
     else
       $query = "SELECT * FROM invoices INNER JOIN customers ON invoices.NAME = customers.NAME WHERE INVOICE_DATE BETWEEN '$start_date' AND '$end_date'";
     $result = mysqli_query($con, $query);
-        print_r($result);
+        // print_r($result);
     while($row = mysqli_fetch_array($result)) {
       $seq_no++;
       //print_r($row);

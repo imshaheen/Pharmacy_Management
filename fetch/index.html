@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <select id="selectValue" >
+    <option value="">Select a value</option>
+    <option value="value1">Value 1</option>
+    <option value="value2">Value 2</option>
+    <option value="value3">Value 3</option>
+  </select>
+  
+  <!-- <div id="result"></div> -->
+  
+  <!-- <script>
+    function fetchData() {
+      var selectValue = document.getElementById("selectValue").value;
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            var response = xhr.responseText;
+            document.getElementById("result").innerHTML = response;
+          } else {
+            console.error("Request failed. Status: " + xhr.status);
+          }
+        }
+      };
+      xhr.open("GET", "fetch_data.php?selectedValue=" + selectValue, true);
+      xhr.send();
+    }
+  </script> -->
+  
+</body>
+</html>

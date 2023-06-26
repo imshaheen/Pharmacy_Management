@@ -57,7 +57,7 @@
           </div>
 
           <div class="col-md-12 text-center">
-            <button class="btn btn-primary" onclick="printReport('Sales');">Print</button>
+            <button class="btn btn-primary" onclick="printReport('Distibution Summary');">Print</button>
           </div>
 
         </div>

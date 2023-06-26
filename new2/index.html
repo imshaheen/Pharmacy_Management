@@ -1,0 +1,71 @@
+<form id="myForm">
+  <div>
+    <h3>Customer Information</h3>
+    <input type="text" name="customers_name" placeholder="Customer's Name" required />
+    <input type="text" name="invoice_date" placeholder="Invoice Date" required />
+  </div>
+  <div>
+    <h3>Time Information</h3>
+    <input type="text" name="in_time" placeholder="In Time" required />
+    <input type="text" name="out_time" placeholder="Out Time" required />
+  </div>
+  <div>
+    <h3>Medical Information</h3>
+    <input type="text" name="disease" placeholder="Disease" required />
+    <input type="text" name="fit_for_work" placeholder="Fit for Work" required />
+    <input type="text" name="c_doctor" placeholder="Consulting Doctor" required />
+  </div>
+  <div id="inputContainer">
+    <h3>Product Information</h3>
+    <div class="product-input">
+      <input type="text" name="product_name[]" placeholder="Product Name" required />
+      <input type="text" name="quantity[]" placeholder="Quantity" required />
+      <button type="button" class="remove-product">Remove</button>
+    </div>
+  </div>
+  <button type="button" id="addProduct">Add Product</button>
+  <button type="submit">Submit</button>
+</form>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  // Add product button click event
+  $('#addProduct').click(function() {
+    var productInput = '<div class="product-input"><input type="text" name="product_name[]" placeholder="Product Name" required /><input type="text" name="quantity[]" placeholder="Quantity" required /><button type="button" class="remove-product">Remove</button></div>';
+    $('#inputContainer').append(productInput);
+  });
+
+  // Remove product button click event
+  $('#inputContainer').on('click', '.remove-product', function() {
+    if ($('#inputContainer .product-input').length > 1) {
+      $(this).closest('.product-input').remove();
+    } else {
+      alert('At least one product is required.');
+    }
+  });
+
+  // Form submit event
+  $('#myForm').submit(function(event) {
+    event.preventDefault();
+
+    var formData = $(this).serialize();
+
+    $.ajax({
+      url: 'insert_data.php',
+      type: 'POST',
+      data: formData,
+      success: function(response) {
+        alert('Data inserted successfully!');
+        // Perform any additional actions after data insertion
+      },
+      error: function(xhr, status, error) {
+        alert('Error: ' + error);
+      }
+    });
+  });
+});
+</script>
+s

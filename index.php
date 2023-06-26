@@ -37,9 +37,30 @@
             </div>
           </form><!-- form close -->
         </div> <!-- cord-body class -->
+        <style>
+            a, button {
+    all: unset;
+            }
+    a {
+  color: white;
+  text-decoration: none; 
+}
+        </style>
         <div class="card-footer">
           <div class="text-center">
             <a class="text-light" href="#">Forgot password?</a>
+            <br>
+            <button class="btn btn-primary">
+              <a href="./user">Login User Demo</a>
+            </button>
+            <br>
+            <button class="btn btn-secondary">
+              <a href="./admin">Login Admin Demo</a>
+            </button>  
+            <br>
+            <button class="btn btn-danger">
+              <a href="./home.php">Home</a>
+            </button>
           </div>
         </div> <!-- cord-footer class -->
       </div> <!-- card class -->

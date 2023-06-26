@@ -72,7 +72,8 @@
             </div> -->
     <!-- new user button end -->
           
-          <form action="" method="post" name="medicine">
+      <form action="" method="post" name="medicine" id="myForm">
+
           <div class="row col col-md-12">
             <div class="col col-md-3 form-group">
               <label class="font-weight-bold" for="customers_name" aria-autocomplete="off">Employee ID :</label>
@@ -94,38 +95,42 @@
             </div>
             <div class="col col-md-2 form-group">
                <label class="font-weight-bold" for="invoice_date">Date :</label>
-              <input type="date" class="datepicker form-control hasDatepicker" name="invoice_date" id="invoice_date" onblur="checkDate(this.value, 'date_error');">
+              <input type="date" class="datepicker form-control hasDatepicker" value="<?php echo date('Y-m-d'); ?>" name="invoice_date" id="invoice_date" onblur="checkDate(this.value, 'date_error');" require>
               <code class="text-danger small font-weight-bold float-right" id="date_error" style="display: none;"></code>
             </div>
             <div class="col-md-2 form-group">
               <label class="font-weight-bold" for="in_time">IN Time :</label>
-              <input type="time" class="form-control" name="in_time" id="in_time" onblur="checkin_time(this.value, 'in_time');">
+              <input type="time" class="form-control" name="in_time" id="in_time" onblur="checkin_time(this.value, 'in_time');" require>
               <code class="text-danger small font-weight-bold float-right" id="in_time" style="display: none;"></code>
             
             </div>
             <div class=" col-md-2 form-group">
               <label class="font-weight-bold" for="out_time">OUT Time :</label>
-              <input type="time" class="form-control" name="out_time" id="out_time" onblur="checkout_time(this.value, 'out_time');">
+              <input type="time" class="form-control" name="out_time" id="out_time" onblur="checkout_time(this.value, 'out_time');" require>
               <code class="text-danger small font-weight-bold float-right" id="out_time" style="display: none;"></code>
             
             </div>
             <div class=" col-md-2 form-group">
               <label class="font-weight-bold" for="Disease">Disease :</label>
-              <input id="Disease" type="text" class="form-control" name="Disease" placeholder="Disease" onblur="checkfit_for_work(this.value, 'fit_for_work');">
+              <input id="Disease" type="text" class="form-control" name="Disease" placeholder="Disease" onblur="checkfit_for_work(this.value, 'fit_for_work');" require>
               <code class="text-danger small font-weight-bold float-right" id="Disease" style="display: none;"></code>
             
             </div>
             <div class="col col-md-2 form-group">
               <label class="font-weight-bold" for="fit_for_work">Fit for Work :</label>
-              <select name="fit_for_work" id="" class="form-control">
-                  <option disabled selected>Select Ability</option>
+              <select name="fit_for_work" id="" class="form-control" require>
+                  <option disabled selected hidden>Select Ability</option>
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
               </select>
               <code class="text-danger small font-weight-bold float-right" id="fit_for_work" style="display: none;"></code>
             </div>
 
-          </div>
+
+
+
+
+     
 
           <div class="col col-md-12">
             <hr class="col-md-12" style="padding: 0px; border-top: 3px solid  #02b6ff;">
@@ -143,18 +148,161 @@
             </div>
           </div>
 
-          <div class="col col-md-12">
+          
+
+          <div class="row col col-md-12" id="invoice_medicine_list_div">
+              <script>getInvoiceNumber();   </script>
+              <!-- addRow(); -->
+         </div>
+
+
+         <div id="medicines" class="row col col-md-12">
+            <div class="row col col-md-12 font-weight-bold medicine-row" >
+                <div class="col-md-2">
+                  <?php
+                      $servername = $SERVER;
+                      $username = $USERNAME;
+                      $password = $PASSWORD;
+                      $dbname = $DB;
+                      
+                      $con = new mysqli($servername, $username, $password, $dbname);
+                      if ($con->connect_error) {
+                        die('Connection failed: ' . $con->connect_error);
+                      }
+                $sql = 'SELECT * FROM medicines_stock';
+                $result = $con->query($sql);
+
+                if ($result->num_rows > 0) {
+                    echo "<select class='form-control' name='medicine_name[]' class='form-control'>";
+                    echo "<option disabled selected>Select Medicine</option>";
+                    while ($row = $result->fetch_assoc()) {$value = $row['NAME'];
+                        echo "<option value='$value'>$value</option>";
+                    }
+                    echo "</select>";
+                } else {
+                    echo "No values found in the database.";
+                }  ?>
+
+                    <!-- <input type="text" id="nameofmedicine" name="medicine_name[]" class="form-control" list="" placeholder="Select Medicine"> -->
+                    <code class="text-danger small font-weight-bold float-right" id="nameofmedicine" style="display: none;"></code>
+                </div>
+                <div class="col-md-2">
+                  <?php
+                      $servername = 'localhost';
+                      $username = 'root';
+                      $password = '';
+                      $dbname = 'JMF';
+                      
+                      $con = new mysqli($servername, $username, $password, $dbname);
+                      if ($con->connect_error) {
+                        die('Connection failed: ' . $con->connect_error);
+                      }
+                    
+
+                  // Close the database connection
+                  mysqli_close($con);
+                  ?>
+                    <input id="batchid" name="batchid" class="form-control" placeholder="Batch ID" value="<?php $value ?>" disabled>
+                    <code class="text-danger small font-weight-bold float-right" id="batchid" style="display: none;"></code>
+                </div>
+                <div class="col-md-2">
+                    <input id="quantity" name="quantity" class="form-control" placeholder="Ava.Qty" disabled>
+                    <code class="text-danger small font-weight-bold float-right" id="QUANTITY" style="display: none;"></code>
+                </div>
+                <div class="col-md-2">
+                    <input id="expiry_date" name="expiry_date" class="form-control" placeholder="Expiry" disabled>
+                    <code class="text-danger small font-weight-bold float-right" id="expiry_date" style="display: none;"></code>
+                </div>
+                <div class="col-md-2">
+                    <input id="issueqty" name="issue_quantity[]" class="form-control" placeholder="0" require>
+                    <code class="text-danger small font-weight-bold float-right" id="issueqty" style="display: none;"></code>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="remove-row btn btn-danger form-control" class="">Remove</button>
+                    <button type="button" id="add-row" class="form-control btn btn-primary">Add Medicine</button>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row col col-md-12" id="medicines">
+            <div class="row col col-md-12 font-weight-bold medicine-row">
+                
+             </div>
+         </div>
+        <div class="col-md-2">
+
+                    <!-- <button type="button" class="remove-row btn btn-success form-control" class="">Remove</button> -->
+        </div>
+        <!-- <button type="submit" name="submit">Submit</button> -->
+
+    <script>
+        $(document).ready(function() {
+            // Add new row
+            $("#add-row").click(function() {
+                var newRow = '<div id="medicines" class="row col col-md-12">'+
+               '<div class="row col col-md-12 font-weight-bold medicine-row" >'+
+                '<div class="col-md-2">'+
+                    '<input type="text" id="nameofmedicine" name="medicine_name[]" class="form-control" list="" placeholder="Select Medicine">'+
+                    '<code class="text-danger small font-weight-bold float-right" id="nameofmedicine" style="display: none;"></code>'+
+                '</div>'+
+                '<div class="col-md-2">'+
+                    '<input id="batchid" name="batchid" class="form-control" placeholder="Batch ID" disabled>'+
+                    '<code class="text-danger small font-weight-bold float-right" id="batchid" style="display: none;"></code>'+
+                '</div>'+
+                '<div class="col-md-2">'+
+                    '<input id="quantity" name="quantity" class="form-control" placeholder="Ava.Qty" disabled>'+
+                    '<code class="text-danger small font-weight-bold float-right" id="QUANTITY" style="display: none;"></code>'+
+                '</div>'+
+                '<div class="col-md-2">'+
+                    '<input id="expiry_date" name="expiry_date" class="form-control" placeholder="Expiry" disabled>'+
+                    '<code class="text-danger small font-weight-bold float-right" id="expiry_date" style="display: none;"></code>'+
+                '</div>'+
+                '<div class="col-md-2">'+
+                    '<input id="issueqty" name="issue_quantity[]" class="form-control" placeholder="0">'+
+                    '<code class="text-danger small font-weight-bold float-right" id="issueqty" style="display: none;"></code>'+
+                '</div>'+
+                '<div class="col-md-2">'+
+                    '<button type="button" class="remove-row btn btn-danger form-control" class="">Remove</button>'+
+                    // '<button type="button" id="add-row" class="form-control btn btn-primary">Add Medicine</button>'+
+
+                '</div>'+
+            '</div>'+
+        '</div>'
+                $("#medicines").append(newRow);
+            });
+
+
+            $(document).on("click", ".remove-row", function() {
+                if ($("#medicines .medicine-row").length > 1) {
+                    $(this).closest(".medicine-row").remove();
+                } else {
+                    alert("At least one row is required.");
+                }
+            });
+        });
+    </script>
+
+
+            <div class="col col-md-12">
             <hr class="col-md-12" style="padding: 0px; border-top: 2px solid  #02b6ff;">
           </div>
 
-          <div class="row col col-md-12" id="invoice_medicine_list_div">
-              <script>getInvoiceNumber();  addRow(); </script>
-         </div>
 
-           
+
             <div class="col col-md-2 form-group">
               <label class="font-weight-bold" for="c_doctor">Consulted Doctor</label>
             <?php
+            $servername =  $SERVER;
+            $username =  $USERNAME;
+            $password = $PASSWORD;
+            $dbname = $DB;
+            
+            $con = new mysqli($servername, $username, $password, $dbname);
+            if ($con->connect_error) {
+              die('Connection failed: ' . $con->connect_error);
+            }
                 $sql = 'SELECT * FROM drlist';
                 $result = $con->query($sql);
 
@@ -183,11 +331,13 @@
  
             </form>
 
+            </div>
+
             <div id="new_invoice_button" class="col col-md-2 form-group float-right"  style="display: none;">
               <label class="font-weight-bold" for=""></label>
               <button class="btn btn-primary form-control font-weight-bold" onclick="location.reload();;">New Distribution</button>
             </div>
-            <div id="print_button" class="col col-md-2 form-group float-right" style="display: none;">
+            <div id="print_button" class="col col-md-2 for`m-group float-right" style="display: none;">
               <label class="font-weight-bold" for=""></label>
               <button class="btn btn-warning form-control font-weight-bold" onclick="printInvoice(document.getElementById('invoice_number').value);">Print</button>
             </div>
@@ -203,3 +353,11 @@
     </div>
   </body>
 </html>
+
+<!-- <script>
+  $('#addrow').click(function(){
+    var newrow = $('next').append( 
+      '<div class="row col col-md-12 font-weight-bold"><div class="col-md-2"><input type="text" id="nameofmedicine" name="name[]" class="form-control" list="" placeholder="Select Medicine"><code class="text-danger small font-weight-bold float-right" id="nameofmedicine" style="display: none;"></code></div><div class="col-md-2"><input id="batchid[]" name="batchid" class="form-control" placeholder="Batch ID" disabled><code class="text-danger small font-weight-bold float-right" id="batchid" style="display: none;"></code></div><div class="col-md-2"><input id="quantity[]" name="quantity" class="form-control" placeholder="Ava.Qty" disabled><code class="text-danger small font-weight-bold float-right" id="QUANTITY" style="display: none;"></code></div><div class="col-md-2"><input id="expiry_date[]" name="expiry_date" class="form-control" placeholder="Expiry" disabled><code class="text-danger small font-weight-bold float-right" id="expiry_date" style="display: none;"></code></div><div class="col-md-2"><input id="issueqty[]" name="issueqty" class="form-control" placeholder="0"><code class="text-danger small font-weight-bold float-right" id="issueqty" style="display: none;"></code></div> <div class="col col-md-2"><button type="button" id="addrow" name="addrow" class="btn btn-primary"><i class="fa fa-plus"></i></button><button class="btn btn-danger" ><i class="fa fa-trash"></i></button></div></div>' );
+  });
+
+</script> -->

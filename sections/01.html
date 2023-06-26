@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form method="post" action="../php/pr">
+    <input type="hidden" name="doctor_id" id="doctor_id" value="">
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name" required>
+    <label for="specialization">Specialization:</label>
+    <input type="text" name="specialization" id="specialization" required>
+    <label for="phone_number">Phone Number:</label>
+    <input type="text" name="phone_number" id="phone_number" required>
+    <label for="address">Address:</label>
+    <input type="text" name="address" id="address" required>
+    <button type="submit" name="submit" id="submitBtn">Save</button>
+  </form>
+
+  
+
+  <script>
+    function editDoctor(doctor_id, name, specialization, phone_number, address) {
+      // Set the form values for editing
+      $('#doctor_id').val(doctor_id);
+      $('#name').val(name);
+      $('#specialization').val(specialization);
+      $('#phone_number').val(phone_number);
+      $('#address').val(address);
+      $('#submitBtn').text('Update');
+    }
+    </script>
+    
+</body>
+</html>

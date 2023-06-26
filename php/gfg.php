@@ -1,6 +1,6 @@
 <?php
 $user_id = $_REQUEST['user_id'];
-$con = mysqli_connect("localhost", "root", "", "JMF");
+$con = mysqli_connect( $SERVER,  $USERNAME, $PASSWORD, $DB);
 if ($user_id !== "") {
 	$query = mysqli_query($con, "SELECT NAME,
 	BATCH_ID, EXPIRY_DATE, QUANTITY FROM medicines_stock WHERE ID='$user_id'");
