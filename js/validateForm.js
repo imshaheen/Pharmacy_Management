@@ -16,8 +16,8 @@ function notNull(text, error) {
 function validateName(name, error) {
   var result = document.getElementById(error);
   result.style.display = "block";
-  if(name.length != 9) {
-    result.innerHTML = "Must contain 09 digits!";
+  if(name.length.trim() == "") {
+    result.innerHTML = "Must be filled out!";
     return false;
   }
 

@@ -18,6 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="js/medicine_data_transfer.js"></script>
     <link rel="stylesheet" href="css/sidenav.css">
     <link rel="stylesheet" href="css/home.css">
 
@@ -126,12 +127,6 @@
               <code class="text-danger small font-weight-bold float-right" id="fit_for_work" style="display: none;"></code>
             </div>
 
-
-
-
-
-     
-
           <div class="col col-md-12">
             <hr class="col-md-12" style="padding: 0px; border-top: 3px solid  #02b6ff;">
           </div>
@@ -148,82 +143,59 @@
             </div>
           </div>
 
-          
-
           <div class="row col col-md-12" id="invoice_medicine_list_div">
               <script>getInvoiceNumber();   </script>
               <!-- addRow(); -->
          </div>
 
 
-         <div id="medicines" class="row col col-md-12">
-            <div class="row col col-md-12 font-weight-bold medicine-row" >
-                <div class="col-md-2">
-                  <?php
-                      $servername = $SERVER;
-                      $username = $USERNAME;
-                      $password = $PASSWORD;
-                      $dbname = $DB;
-                      
-                      $con = new mysqli($servername, $username, $password, $dbname);
-                      if ($con->connect_error) {
-                        die('Connection failed: ' . $con->connect_error);
-                      }
-                $sql = 'SELECT * FROM medicines_stock';
-                $result = $con->query($sql);
+    <div id="fieldsContainer">
+        <div id="medicines" class="row col col-md-12 mb-2">
+          <div class="row col col-md-12 font-weight-bold medicine-row fieldsContainers" >
+              <div class="col-md-2 ">
+                <?php
+              require './php/db_connection.php';
+              $sql = 'SELECT * FROM medicines_stock';
+              $result = $con->query($sql);
 
-                if ($result->num_rows > 0) {
-                    echo "<select class='form-control' name='medicine_name[]' class='form-control'>";
-                    echo "<option disabled selected>Select Medicine</option>";
-                    while ($row = $result->fetch_assoc()) {$value = $row['NAME'];
-                        echo "<option value='$value'>$value</option>";
-                    }
-                    echo "</select>";
-                } else {
-                    echo "No values found in the database.";
-                }  ?>
+              if ($result->num_rows > 0) {
+                  echo "<select class='form-control' name='medicine_name[]' class='form-control' id='medicineDropdown'>";
+                  echo "<option disabled selected hidden>Select Medicine</option>";
+                  while ($row = $result->fetch_assoc()) {$value = $row['NAME'];
+                      echo "<option value='$value'>$value</option>";
+                  }
+                  echo "</select>";
+              } else {
+                  echo "No values found in the database.";
+              }  ?>
+              <code class="text-danger small font-weight-bold float-right" id="nameofmedicine" style="display: none;"></code>
+              </div>
+              <div class="col-md-2">
 
-                    <!-- <input type="text" id="nameofmedicine" name="medicine_name[]" class="form-control" list="" placeholder="Select Medicine"> -->
-                    <code class="text-danger small font-weight-bold float-right" id="nameofmedicine" style="display: none;"></code>
-                </div>
-                <div class="col-md-2">
-                  <?php
-                      $servername = 'localhost';
-                      $username = 'root';
-                      $password = '';
-                      $dbname = 'JMF';
-                      
-                      $con = new mysqli($servername, $username, $password, $dbname);
-                      if ($con->connect_error) {
-                        die('Connection failed: ' . $con->connect_error);
-                      }
-                    
-
-                  // Close the database connection
-                  mysqli_close($con);
-                  ?>
-                    <input id="batchid" name="batchid" class="form-control" placeholder="Batch ID" value="<?php $value ?>" disabled>
-                    <code class="text-danger small font-weight-bold float-right" id="batchid" style="display: none;"></code>
-                </div>
-                <div class="col-md-2">
-                    <input id="quantity" name="quantity" class="form-control" placeholder="Ava.Qty" disabled>
-                    <code class="text-danger small font-weight-bold float-right" id="QUANTITY" style="display: none;"></code>
-                </div>
-                <div class="col-md-2">
-                    <input id="expiry_date" name="expiry_date" class="form-control" placeholder="Expiry" disabled>
-                    <code class="text-danger small font-weight-bold float-right" id="expiry_date" style="display: none;"></code>
-                </div>
-                <div class="col-md-2">
-                    <input id="issueqty" name="issue_quantity[]" class="form-control" placeholder="0" require>
-                    <code class="text-danger small font-weight-bold float-right" id="issueqty" style="display: none;"></code>
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="remove-row btn btn-danger form-control" class="">Remove</button>
-                    <button type="button" id="add-row" class="form-control btn btn-primary">Add Medicine</button>
-
-                </div>
+                  <input id="batchId" name="batchid" class="form-control" placeholder="Batch ID"  disabled>
+                  <code class="text-danger small font-weight-bold float-right" id="batchid" style="display: none;"></code>
+              </div>
+              <div class="col-md-2">
+                  <input id="qty" name="quantity" class="form-control" placeholder="Ava.Qty" disabled>
+                  <code class="text-danger small font-weight-bold float-right" id="QUANTITY" style="display: none;"></code>
+              </div>
+              <div class="col-md-2">
+                  <input id="expiry" name="expiry_date" class="form-control" placeholder="Expiry" disabled>
+                  <code class="text-danger small font-weight-bold float-right" id="expiry_date" style="display: none;"></code>
+              </div>
+              <div class="col-md-2">
+                  <input id="issueqty" name="issue_quantity[]" class="form-control" placeholder="0" require>
+                  <code class="text-danger small font-weight-bold float-right" id="issueqty" style="display: none;"></code>
+              </div>
+              <div class="col-md-1">
+                 <button type="button" class="btn btn-primary" onclick="addField()">Add</button>
             </div>
-        </div>
+            <div class="col-md-1">
+                   <span class="remove-btn" onclick="removeField(this)">Remove</span>
+              </div>
+      </div>
+  </div>
+  </div>
 
 
         <div class="row col col-md-12" id="medicines">
@@ -232,58 +204,9 @@
              </div>
          </div>
         <div class="col-md-2">
-
-                    <!-- <button type="button" class="remove-row btn btn-success form-control" class="">Remove</button> -->
         </div>
-        <!-- <button type="submit" name="submit">Submit</button> -->
 
-    <script>
-        $(document).ready(function() {
-            // Add new row
-            $("#add-row").click(function() {
-                var newRow = '<div id="medicines" class="row col col-md-12">'+
-               '<div class="row col col-md-12 font-weight-bold medicine-row" >'+
-                '<div class="col-md-2">'+
-                    '<input type="text" id="nameofmedicine" name="medicine_name[]" class="form-control" list="" placeholder="Select Medicine">'+
-                    '<code class="text-danger small font-weight-bold float-right" id="nameofmedicine" style="display: none;"></code>'+
-                '</div>'+
-                '<div class="col-md-2">'+
-                    '<input id="batchid" name="batchid" class="form-control" placeholder="Batch ID" disabled>'+
-                    '<code class="text-danger small font-weight-bold float-right" id="batchid" style="display: none;"></code>'+
-                '</div>'+
-                '<div class="col-md-2">'+
-                    '<input id="quantity" name="quantity" class="form-control" placeholder="Ava.Qty" disabled>'+
-                    '<code class="text-danger small font-weight-bold float-right" id="QUANTITY" style="display: none;"></code>'+
-                '</div>'+
-                '<div class="col-md-2">'+
-                    '<input id="expiry_date" name="expiry_date" class="form-control" placeholder="Expiry" disabled>'+
-                    '<code class="text-danger small font-weight-bold float-right" id="expiry_date" style="display: none;"></code>'+
-                '</div>'+
-                '<div class="col-md-2">'+
-                    '<input id="issueqty" name="issue_quantity[]" class="form-control" placeholder="0">'+
-                    '<code class="text-danger small font-weight-bold float-right" id="issueqty" style="display: none;"></code>'+
-                '</div>'+
-                '<div class="col-md-2">'+
-                    '<button type="button" class="remove-row btn btn-danger form-control" class="">Remove</button>'+
-                    // '<button type="button" id="add-row" class="form-control btn btn-primary">Add Medicine</button>'+
-
-                '</div>'+
-            '</div>'+
-        '</div>'
-                $("#medicines").append(newRow);
-            });
-
-
-            $(document).on("click", ".remove-row", function() {
-                if ($("#medicines .medicine-row").length > 1) {
-                    $(this).closest(".medicine-row").remove();
-                } else {
-                    alert("At least one row is required.");
-                }
-            });
-        });
-    </script>
-
+    
 
             <div class="col col-md-12">
             <hr class="col-md-12" style="padding: 0px; border-top: 2px solid  #02b6ff;">
@@ -361,3 +284,125 @@
   });
 
 </script> -->
+
+
+
+
+<script>
+      // JavaScript/jQuery code
+      function addField() {
+        var field = `
+          <div class="form-group row">
+          <div id="fieldsContainer" class="mt-5">
+        <div id="medicines" class="row col col-md-12">
+          <div class="row col col-md-12 font-weight-bold medicine-row" >
+              <div class="col-md-2">
+              <?php
+                require_once './php/db_connection.php';
+              $sql = 'SELECT * FROM medicines_stock';
+              $result = $con->query($sql);
+
+              if ($result->num_rows > 0) {
+                  echo "<select class='form-control' name='medicine_name[]' class='form-control' id='medicineDropdown'>";
+                  echo "<option disabled selected hidden>Select Medicine</option>";
+                  while ($row = $result->fetch_assoc()) {$value = $row['NAME'];
+                      echo "<option value='$value'>$value</option>";
+                  }
+                  echo "</select>";
+              } else {
+                  echo "No values found in the database.";
+              }  ?>
+
+                  <code class="text-danger small font-weight-bold float-right" id="nameofmedicine" style="display: none;"></code>
+              </div>
+              <div class="col-md-2">
+
+                  <input id="batchId" name="batchid" class="form-control" placeholder="Batch ID"  disabled>
+                  <code class="text-danger small font-weight-bold float-right" id="batchid" style="display: none;"></code>
+              </div>
+              <div class="col-md-2">
+                  <input id="qty" name="quantity" class="form-control" placeholder="Ava.Qty" disabled>
+                  <code class="text-danger small font-weight-bold float-right" id="QUANTITY" style="display: none;"></code>
+              </div>
+              <div class="col-md-2">
+                  <input id="expiry" name="expiry_date" class="form-control" placeholder="Expiry" disabled>
+                  <code class="text-danger small font-weight-bold float-right" id="expiry_date" style="display: none;"></code>
+              </div>
+              <div class="col-md-2">
+                  <input id="issueqty" name="issue_quantity[]" class="form-control" placeholder="0" require>
+                  <code class="text-danger small font-weight-bold float-right" id="issueqty" style="display: none;"></code>
+              </div>
+              <div class="col-md-1">
+                   <span class="remove-btn" onclick="removeField(this)">Remove</span>
+              </div>
+        </div>
+
+    </div>
+        `;
+        $('#fieldsContainer').append(field);
+      }
+
+
+      function addField() {
+  var fieldContainer = document.getElementById("fieldsContainer");
+  var rows = fieldContainer.getElementsByClassName("medicine-row");
+
+  var newRow = rows[0].cloneNode(true);
+  var dropdown = newRow.querySelector("#medicineDropdown");
+  var batchIdInput = newRow.querySelector("#batchId");
+  var qtyInput = newRow.querySelector("#qty");
+  var expiryInput = newRow.querySelector("#expiry");
+
+  // Clear the values of the newly cloned row
+  dropdown.selectedIndex = 0;
+  batchIdInput.value = "";
+  qtyInput.value = "";
+  expiryInput.value = "";
+
+  // Append the new row to the fields container
+  fieldContainer.appendChild(newRow);
+
+  // Add "Remove" button to all rows except the first row
+  var removeButtons = fieldContainer.getElementsByClassName("remove-btn");
+  if (rows.length > 1) {
+    for (var i = 0; i < removeButtons.length; i++) {
+      removeButtons[i].style.display = "inline-block";
+    }
+  }
+
+  // Fetch the values from the database based on the selected medicine
+  dropdown.addEventListener("change", function() {
+    var selectedMedicine = dropdown.value;
+    var url = "api.php?medicine=" + selectedMedicine;
+
+    fetch(url)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        batchIdInput.value = data.batchId;
+        qtyInput.value = data.qty;
+        expiryInput.value = data.expiry;
+      })
+      .catch(function(error) {
+        console.log("Error fetching data: ", error);
+      });
+  });
+}
+
+function removeField(element) {
+  var row = element.parentNode.parentNode;
+  var fieldContainer = document.getElementById("fieldsContainer");
+  var rows = fieldContainer.getElementsByClassName("medicine-row");
+
+  if (rows.length > 1) {
+    row.parentNode.removeChild(row);
+
+    // Show "Remove" buttons for remaining rows
+    var removeButtons = fieldContainer.getElementsByClassName("remove-btn");
+    for (var i = 0; i < removeButtons.length; i++) {
+      removeButtons[i].style.display = "inline-block";
+    }
+  }
+}
+    </script>

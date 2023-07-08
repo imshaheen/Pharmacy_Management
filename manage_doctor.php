@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Manage Supplier</title>
+    <title>Manage Doctor</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 		<script src="bootstrap/js/jquery.min.js"></script>
 		<script src="bootstrap/js/bootstrap.min.js"></script>
@@ -25,7 +25,7 @@
         <!-- header section -->
         <?php
           require "php/header.php";
-          createHeader('group', 'Manage Supplier', 'Manage Existing Supplier');
+          createHeader('group', 'Manage Doctor', 'Manage Existing Doctor');
         ?>
         <!-- header section end -->
 
@@ -34,7 +34,7 @@
 
           <div class="col-md-12 form-group form-inline">
             <label class="font-weight-bold" for="">Search :&emsp;</label>
-            <input type="text" class="form-control" id="" placeholder="Search Supplier" onkeyup="searchSupplier(this.value);">
+            <input type="text" class="form-control" id="" placeholder="Search Doctor" onkeyup="searchSupplier(this.value);">
           </div>
 
           <div class="col col-md-12">
@@ -49,7 +49,7 @@
                     <th style="width: 5%;">SL</th>
             				<th style="width: 10%;">ID</th>
             				<th style="width: 20%;">Name</th>
-                    <th style="width: 15%;">Email</th>
+                    <th style="width: 15%;">Degree</th>
                     <th style="width: 15%;">Contact Number</th>
                     <th style="width: 20%;">Address</th>
                     <th style="width: 15%;">Action</th>
@@ -57,7 +57,7 @@
             		</thead>
                 <tbody id="suppliers_div">
                   <?php
-                    require 'php/manage_supplier.php';
+                    require 'php/manage_doctor.php';
                     showSuppliers(0);
                   ?>
             		</tbody>
