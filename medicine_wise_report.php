@@ -51,16 +51,15 @@
           <div class="col col-md-12 table-responsive">
             <div id="print_content" class="table-responsive">
             	<table class="table table-bordered table-striped table-hover" id="sales_report_div">
-                <?php
-                require "php/report.php";
+                <!-- require "php/report.php";
                 showSales("", "");
-                ?>
+                ?> -->
             	</table>
             </div>
           </div>
 
           <div class="col-md-12 text-center">
-            <button class="btn btn-primary" onclick="printReport('Distibution Summary');">Print</button>
+            <button class="btn btn-primary" onclick="printReport('Medicine Wise');">Print</button>
           </div>
 
         </div>

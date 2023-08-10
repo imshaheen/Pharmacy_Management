@@ -33,7 +33,7 @@
 
           <div class="col-md-12 form-group form-inline">
             <label class="font-weight-bold" for="">Search :&emsp;</label>
-            <input type="number" class="form-control" id="by_invoice_number" placeholder="By Distribution" onkeyup="searchInvoice(this.value, 'INVOICE_ID');">
+            <input type="text" class="form-control" id="by_invoice_number" placeholder="By Distribution" onkeyup="searchInvoice(this.value, 'INVOICE_ID');">
             &emsp;<input type="text" class="form-control" id="by_customer_name" placeholder="By Employee ID" onkeyup="searchInvoice(this.value, 'NAME');">
             &emsp;<label class="font-weight-bold" for="">By Distribution Date :&emsp;</label>
             <input type="date" class="form-control" id="by_date" onchange="searchInvoice(this.value, 'INVOICE_DATE');">
@@ -54,8 +54,8 @@
             				<th>Distribution No</th>
             				<th>Employee ID</th>
             				<th>Date of Issue</th>
-                    <th>How Many Medicine</th>
                     <th>Medicine Name</th>
+                    <th>No. of Medicine</th>
                     <th>Consultant Doctor</th>
                     <th>Action</th>
             			</tr>

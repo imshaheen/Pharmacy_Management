@@ -4,7 +4,7 @@ require "db_connection.php";
 if ($con) {
   if (isset($_GET["action"]) && $_GET["action"] == "delete") {
     $id = $_GET["id"];
-    $query = "DELETE FROM doctor WHERE ID = $id";
+    $query = "DELETE FROM drlist WHERE ID = $id";
     $result = mysqli_query($con, $query);
     if (!empty($result))
       showSuppliers(0);

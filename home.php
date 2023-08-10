@@ -171,8 +171,8 @@
               ';
             }
             createSection2('address-card', 'new_invoice.php', 'Create New Distribution');
-            // createSection2('bar-chart', 'add_purchase.php', 'Add New Purchase');
-            createSection2('shopping-bag', 'add_medicine.php', 'Add New Medicine');
+            createSection2('bar-chart', 'Purchase', 'Add New Medicine');
+            // createSection2('shopping-bag', 'add_medicine.php', 'Add New Medicine');
             createSection2('handshake', 'add_customer.php', 'Add New Employee');
             // createSection2('group', 'add_supplier.php', 'Add New Supplier');
             createSection2('book', 'sales_report.php', 'Report');

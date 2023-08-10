@@ -14,6 +14,7 @@
     <script src="js/manage_supplier.js"></script>
     <script src="js/validateForm.js"></script>
     <script src="js/restrict.js"></script>
+    <script src="jquery-3.6.4.min.js"></script>
   </head>
   <body>
     <!-- including side navigations -->

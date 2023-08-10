@@ -39,8 +39,8 @@
       <td><?php echo $row['INVOICE_ID']; ?></td>
       <td><?php echo $row['CUSTOMER_ID']; ?></td>
       <td><?php echo $row['INVOICE_DATE']; ?></td>
-      <td><?php echo $row['ISSUEQUANTITY']; ?></td>
       <td><?php echo $row['MEDICINE_NAME']; ?></td>
+      <td><?php echo $row['ISSUEQUANTITY']; ?></td>
       <td><?php echo $row['CONSULTED_DOCTOR']; ?></td>
       <td>
         <button class="btn btn-warning btn-sm" onclick="printInvoice(<?php echo $row['INVOICE_ID']; ?>);">

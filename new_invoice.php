@@ -109,7 +109,6 @@
               <label class="font-weight-bold" for="out_time">OUT Time :</label>
               <input type="time" class="form-control" name="out_time" id="out_time" onblur="checkout_time(this.value, 'out_time');" require>
               <code class="text-danger small font-weight-bold float-right" id="out_time" style="display: none;"></code>
-            
             </div>
             <div class=" col-md-2 form-group">
               <label class="font-weight-bold" for="Disease">Disease :</label>
@@ -119,7 +118,7 @@
             </div>
             <div class="col col-md-2 form-group">
               <label class="font-weight-bold" for="fit_for_work">Fit for Work :</label>
-              <select name="fit_for_work" id="" class="form-control" require>
+              <select name="fit_for_work" id="" class="form-control" required >
                   <option disabled selected hidden>Select Ability</option>
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
@@ -230,8 +229,8 @@
                 $result = $con->query($sql);
 
                 if ($result->num_rows > 0) {
-                    echo "<select class='form-control' name='c_doctor' class='c_doctor'>";
-                    echo "<option disabled selected>Choose Droctor</option>";
+                    echo "<select class='form-control' name='c_doctor' class='c_doctor' required>";
+                    echo "<option disabled selected hidden>Choose Droctor</option>";
                     while ($row = $result->fetch_assoc()) {$value = $row['drname'];
                         echo "<option value='$value'>$value</option>";
                     }

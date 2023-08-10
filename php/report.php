@@ -68,10 +68,11 @@ function showSales($start_date, $end_date) {
       <th>Employee Name</th>
       <th>Distibution Number</th>
       <th>Medicin Name</th>
-      <th>How Many Medicine</th>
+      <th>No. of Medicine</th>
+      <th>Date</th>
       <th>IN Time</th>
       <th>OUT Time</th>
-      <th>Total Spend Time</th>
+      <th>Spend Time</th>
       <th>Disease</th>
       <th>Fit For Work</th>
       <th>Consulted Doctor</th>
@@ -112,11 +113,12 @@ function showSalesRow($seq_no, $row) {
   ?>
   <tr>
     <td><?php echo $seq_no; ?></td>
-    <td><?php echo $row['ID']; ?></td>
+    <td><?php echo $row['CUSTOMER_ID']; ?></td>
     <td><?php echo $row['CONTACT_NUMBER']; ?></td>
     <td><?php echo $row['INVOICE_ID']; ?></td>
     <td><?php echo $row['MEDICINE_NAME'] ?></td>
     <td><?php echo $row['ISSUEQUANTITY'] ?></td>
+    <td><?php echo $row['INVOICE_DATE']; ?></td>
     <td><?php echo $row['IN_TIME'] ?></td>
     <td><?php echo $row['OUT_TIME'] ?></td>
     <td><?php echo $row['TOTAL_SPEND'] ?></td>

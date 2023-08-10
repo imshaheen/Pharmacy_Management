@@ -26,7 +26,7 @@ function updateSupplier(id) {
   var supplier_email = document.getElementById("supplier_email");
   var contact_number = document.getElementById("supplier_contact_number");
   var supplier_address = document.getElementById("supplier_address");
-  if(!validateName(supplier_name.value, "name_error"))
+  if(!validateAddress(supplier_name.value, "name_error"))
     supplier_name.focus();
   else if(!validateContactNumber(contact_number.value, "contact_number_error"))
     contact_number.focus();
@@ -38,7 +38,7 @@ function updateSupplier(id) {
       if(xhttp.readyState = 4 && xhttp.status == 200)
         document.getElementById('suppliers_div').innerHTML = xhttp.responseText;
     };
-    xhttp.open("GET", "php/manage_doctor.php?action=update&id=" + id + "&name=" + supplier_name.value + "&email=" + supplier_email.value +"&contact_number=" + contact_number.value + "&address=" + supplier_address.value, true);
+    xhttp.open("GET", "php/manage_doctor.php?action=update&id=" + id + "&drname=" + supplier_name.value + "&drdegree=" + supplier_email.value +"&drphone=" + contact_number.value + "&draddress=" + supplier_address.value, true);
     xhttp.send();
   }
 }
